@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 import os,re,sys
 """Look at local Art of Rally records in Leaderboards.txt and find slow entries
 
@@ -27,6 +27,16 @@ def makeblist(leadb):
         if any(x in line for x in ["Group","_60s","_70s","_80s"]):
             lblist.append(line)
     return(lblist)
+
+"""Convert msec to minutes & seconds, insert zero for single digit seconds
+"""
+def formatrec(msec):
+    minute = msec // 60000
+    second = msec/1000
+    second = second-(minute*60)
+    tcomposite = "%02d:%0.3f" % (minute,second)
+    twatchform = re.sub(r":([0-9])\.[0-9]",":0\\1.",tcomposite)
+    return twatchform
 
 """Check starting argument to use as work directory.
 """
@@ -134,20 +144,27 @@ resultstr,ucar,lcar = "","",""
 
 print("Looking for internally slow records...")
 for vgrp in validcmp:
+    grphcounter = 0
     if vgrp == validcmp[-1]:
         break
     for compx in entries[vgrp]:
-# here should be prepared a loop to go through between max-1..1 groups
+# loop to go through between max-1..1 groups
         for cgrp in reversed(validcmp[validcmp.index(vgrp):]):
             try:
                 if float(entries[vgrp][compx][0]) > \
                 float(entries[cgrp][compx][0]):
                     hitcounter += 1
+                    grphcounter += 1
+                    if grphcounter == 1:
+                        resultstr += "within \033[1m"+str(gcollection\
+                    [(validcmp.index(vgrp))])+"\033[0m\n"
                     stageneat = re.sub("_"," ",re.sub(r"Forward",r"(F)",compx))
-                    rdiff = float(entries[vgrp][compx][0])/1000 - \
-                    float(entries[cgrp][compx][0])/1000
+                    fast_t = float(entries[cgrp][compx][0])
+                    rdiff = float(entries[vgrp][compx][0]) / 1000 - \
+                    fast_t / 1000
                     vveh = entries[vgrp][compx][1]
                     cveh = entries[cgrp][compx][1]
+                    fast_tstr = str(formatrec(fast_t))
                     if cveh == "0":
                         ucar = "default"
                     else:
@@ -161,16 +178,16 @@ for vgrp in validcmp:
                     resultstr += str(gcollection\
                     [(validcmp.index(cgrp))])+" ("+ucar+") record is faster "
                     resultstr += "than "+str(gcollection\
-                    [(validcmp.index(vgrp))])+\
-                    " ("+lcar+") record.\nThe difference is "+str("%0.3f"%rdiff)+\
-                    " s.\n\n"
+                    [(validcmp.index(vgrp))])+" ("+lcar+") record.\n"
+                    resultstr += "Time to beat: "+fast_tstr+"\n"
+                    resultstr += "The difference is "+str("%0.3f"%rdiff)+" s.\n\n"
             except KeyError: pass
 
 if hitcounter == 0:
     print("Found absolutely nothing!")
 elif hitcounter >= 1:
     print(resultstr)
-    print("That's",hitcounter,"cases you can work on.")
+    print(hitcounter)
 else:
     print("Unknown error!")
     quit
