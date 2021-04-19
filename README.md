@@ -10,7 +10,9 @@ How?
 
 You need either python 2.7 or python 3. You need to either give the location of Leaderboards.txt on the command line, or change the directory first and give no argument:
 python aortacomp.py ~/.config/unity3d/Funselektor\ Labs/art\ of\ rally/Save
+
 python aortacomp.py AppData\LocalLow\Funselektor Labs\art of rally\Save
+
 python aortacomp.py ~/Library/Application Support/Funselektor Labs/art of rally/Save
 
 If you get a long list, you can redirect it to a text file.
