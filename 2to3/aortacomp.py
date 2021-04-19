@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import os,re,sys
 """Look at local Art of Rally records in Leaderboards.txt and find slow entries
 
