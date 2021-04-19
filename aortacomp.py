@@ -15,8 +15,8 @@ One (1) optional argument is used, for the location of this file.
 data
 """
 def unsatis():
-    print("Custom rallies in more than one group and on the same stages")
-    print("is an easy way to make sure there's enough records to work with.")
+    print "Custom rallies in more than one group and on the same stages"
+    print "is an easy way to make sure there's enough records to work with."
     quit
 
 """Read file into a list object.
@@ -32,7 +32,7 @@ def makeblist(leadb):
 """
 try:
     if len(sys.argv[1]) > 0:
-        print(sys.argv)
+        print sys.argv
         os.chdir(sys.argv[1])
 except IndexError:
     pass
@@ -73,7 +73,7 @@ per speed". Complain if less than two are found.
 """
 validcmp = []
 
-print("Added", end=' ')
+print "Added",
 gcollection = []
 gcolstr = ''
 greport = ''
@@ -110,16 +110,16 @@ except KeyError: pass
 
 validcmpl = len(validcmp)
 if len(validcmp) == 0:
-    print("nothing.")
+    print "nothing."
     unsatis()
 for gcomp in gcollection:
     gcolstr += gcomp+", "
 validstr = str(validcmpl)
 greport += gcolstr + "found " + validstr + " to compare."
-print(greport)
+print greport
 if len(validcmp) < 2:
-    print() 
-    print("Did not find two rally groups in here.")
+    print 
+    print "Did not find two rally groups in here."
     unsatis()
 
 """Compare times across groups per stage.
@@ -132,7 +132,7 @@ hitcounter = 0
 iy = 1
 resultstr,ucar,lcar = "","",""
 
-print("Looking for internally slow records...")
+print "Looking for internally slow records..."
 for vgrp in validcmp:
     if vgrp == validcmp[-1]:
         break
@@ -162,16 +162,16 @@ for vgrp in validcmp:
                     [(validcmp.index(cgrp))])+" ("+ucar+") record is faster "
                     resultstr += "than "+str(gcollection\
                     [(validcmp.index(vgrp))])+\
-                    " ("+lcar+") record.\nThe difference is "+str("%0.3f"%rdiff)+\
+                    " ("+lcar+") record.\nThe difference is "+str(rdiff)+\
                     " s.\n\n"
             except KeyError: pass
 
 if hitcounter == 0:
-    print("Found absolutely nothing!")
+    print "Found absolutely nothing!"
 elif hitcounter >= 1:
-    print(resultstr)
-    print("That's",hitcounter,"cases you can work on.")
+    print resultstr
+    print "That's",hitcounter,"cases you can work on."
 else:
-    print("Unknown error!")
+    print "Unknown error!"
     quit
     
