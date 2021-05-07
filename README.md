@@ -4,7 +4,7 @@ What?
 
 This program works with the Leaderboards.txt from Art of Rally. It reports times that are slower than a corresponding time (same stage, direction and grip level) for a slower group. Group A is considered fastest, and group 2 is considered slowest. 
 
-Cars aren't compared, but their numbers are displayed nevertheless. They are counting from the default onward, with 1 being the one you get after changing the car one step in the game menu.
+Cars aren't compared, but their numbers are displayed nevertheless. They are counting from the default onward, with 2 being the one you get after changing the car one step in the game menu.
 
 How?
 
