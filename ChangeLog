@@ -1,0 +1,5 @@
+0.2:
+    * file lookup more complete with alternative locations
+    * removed debug output
+0.1:
+    * initial release
