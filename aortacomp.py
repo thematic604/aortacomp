@@ -42,7 +42,6 @@ def formatrec(msec):
 """
 try:
     if len(sys.argv[1]) > 0:
-        print sys.argv
         os.chdir(sys.argv[1])
 except IndexError:
     pass
@@ -50,16 +49,41 @@ except IndexError:
 """Open a file of records and read it into a list object.
 """
 entries = {}
-try:
-    with open("Leaderboards.txt", "r") as lbfile:
-        lblist = makeblist(lbfile)
-#        lblist = []
-#        for line in lbfile:
-#            if any(x in line for x in ["Group","_60s","_70s","_80s"]):
-#                lblist.append(line)
-except IOError:
-    with open("Save/Leaderboards.txt", "r") as lbfile:
-        lblist = makeblist(lbfile)
+filelocd = "Leaderboards.txt"
+filelogc = "GOG_cloud/Leaderboards.txt"
+filelore = "Save/Leaderboards.txt"
+filelosc = "cloud/Leaderboards.txt"
+fileloec = "eos_cloud/Leaderboards.txt"
+if os.path.isfile(filelocd):
+    try:
+        with open(filelocd, "r") as lbfile:
+            lblist = makeblist(lbfile)
+    except IOError:
+        pass
+elif os.path.isfile(filelogc):
+    try:
+        with open(filelogc, "r") as lbfile:
+            lblist = makeblist(lbfile)
+    except IOError:
+        pass
+elif os.path.isfile(filelore):
+    try:
+        with open(filelore, "r") as lbfile:
+            lblist = makeblist(lbfile)
+    except IOError:
+        pass
+elif os.path.isfile(filelosc):
+    try:
+        with open(filelosc, "r") as lbfile:
+            lblist = makeblist(lbfile)
+    except IOError:
+        pass
+elif os.path.isfile(fileloec):
+    try:
+        with open(fileloec, "r") as lbfile:
+            lblist = makeblist(lbfile)
+    except IOError:
+        pass
 
 """Iterate over the created list and turn it into a dictionary
 within a dictionary. The actual record is a tuple with the chosen car.
@@ -68,7 +92,6 @@ for lbitem in lblist:
     esearch = re.search(r"(.*(Dry|Wet))_(.*):(\d*):([0-9])", lbitem)
     if esearch:
         foundpla = esearch.group(1)
-#       foundgri = esearch.group(2)
         foundgrp = esearch.group(3)
         foundrec = esearch.group(4)
         foundveh = esearch.group(5)
